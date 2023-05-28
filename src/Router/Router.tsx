@@ -12,6 +12,7 @@ const Router: React.FC = () => {
         <Route index element={<LandingPage />} />
         <Route path={EROUTE.firstPage} element={<FirstPage />} />
         <Route path={EROUTE.secondPage} element={<SecondPage />} />
+        <Route path={"*"} element={<div>ErrorFallBack</div>} />
       </Route>
     </Routes>
   );
