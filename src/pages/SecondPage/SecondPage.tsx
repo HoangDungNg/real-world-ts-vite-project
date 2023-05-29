@@ -1,7 +1,11 @@
 import React from "react";
 
 const SecondPage: React.FC = () => {
-  return <div>SecondPage</div>;
+  return (
+    <div>
+      <h1>SecondPage</h1>
+    </div>
+  );
 };
 
 export default SecondPage;

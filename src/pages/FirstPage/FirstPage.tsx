@@ -1,7 +1,11 @@
 import React from "react";
 
 const FirstPage: React.FC = () => {
-  return <div>FirstPage</div>;
+  return (
+    <div>
+      <h1>FirstPage</h1>
+    </div>
+  );
 };
 
 export default FirstPage;
