@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { FirstPage, LandingPage, SecondPage } from "@pages";
-import { EROUTE } from "../Constant";
 import { App } from "../Layout";
+import { EROUTE } from "../constant";
 
 const Router: React.FC = () => {
   return (
