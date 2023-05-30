@@ -15,6 +15,8 @@
     "@react-three/fiber": "^8.13.0",
     "@types/node": "^20.2.4",
     "@types/styled-components": "^5.1.26",
+    "@types/three": "^0.152.1",
+    "gltfjsx": "^6.2.3",
     "gsap": "^3.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,6 +24,7 @@
     "react-router-dom": "^6.11.2",
     "sass": "^1.62.1",
     "styled-components": "^5.3.11",
+    "three": "^0.152.2",
     "vite-raw-plugin": "^1.0.1",
     "vite-tsconfig-paths": "^4.2.0"
   },

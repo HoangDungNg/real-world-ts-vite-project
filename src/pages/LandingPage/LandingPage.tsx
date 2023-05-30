@@ -1,11 +1,12 @@
 import React from "react";
 
-import { HeroSection, Quote } from "./LandingPageSections";
+import { HeroSection, PhoneModel, Quote } from "./LandingPageSections";
 
 const LandingPage: React.FC = () => {
   return (
     <>
       <Quote />
+      <PhoneModel />
       <HeroSection />
     </>
   );
