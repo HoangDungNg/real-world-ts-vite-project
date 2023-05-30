@@ -1,11 +1,18 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import rawPlugin from "vite-raw-plugin";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteTsconfigPaths()],
+  plugins: [
+    react(),
+    viteTsconfigPaths(),
+    rawPlugin({
+      fileRegex: /\.scss$/,
+    }),
+  ],
   server: {
     watch: {
       usePolling: true,

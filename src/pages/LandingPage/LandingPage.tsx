@@ -1,11 +1,11 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+
+import { Quote } from "./LandingPageSections";
 
 const LandingPage: React.FC = () => {
   return (
     <>
-      <h1>This is landing page</h1>
-      <Outlet />
+      <Quote />
     </>
   );
 };

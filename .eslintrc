@@ -26,13 +26,15 @@
     "react-refresh",
     "unused-imports",
     "prettier",
-    "react-hooks"
+    "react-hooks",
+    "import"
   ],
   "rules": {
     "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/accessible-emoji": "off",
     "no-unused-vars": "off",
+    "no-unused-labels": "warn",
     "unused-imports/no-unused-imports": "warn",
     "unused-imports/no-unused-vars": [
       "warn",
@@ -47,7 +49,15 @@
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "react-refresh/only-export-components": "warn",
-    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "import/order": [
+      "warn",
+      {
+        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "index"],
+        "newlines-between": "always"
+      }
+    ],
+    "import/newline-after-import": "warn"
   },
   "settings": {
     "import/resolver": {
