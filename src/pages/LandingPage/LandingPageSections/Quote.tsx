@@ -1,4 +1,6 @@
-import React from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useLayoutEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { QuoteTextType } from "./LandingPageSectionTypes";
@@ -7,6 +9,7 @@ const Section = styled.section`
   width: 100vw;
   height: 100vh;
   position: relative;
+  transform: none !important;
 
   display: flex;
   justify-content: center;
@@ -63,8 +66,27 @@ const Text = styled.p<QuoteTextType>`
 `;
 
 const Quote: React.FC = () => {
+  gsap.registerPlugin(ScrollTrigger);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const tl = useRef(gsap.timeline());
+
+  useLayoutEffect(() => {
+    const ele = sectionRef.current;
+    const ctx = gsap.context(() => {
+      tl.current = gsap.timeline().to(ele as GSAPTweenTarget, {
+        scrollTrigger: {
+          trigger: ele,
+          start: "top top",
+          pin: true,
+          pinSpacing: false,
+        },
+      });
+      return () => ctx.revert();
+    }, sectionRef);
+  }, []);
+
   return (
-    <Section>
+    <Section ref={sectionRef}>
       <TextContainer>
         <Text delay="0s">
           <span>&#8220; You can&apos;t connect the dots looking forward; </span>

@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const PhoneModel: React.FC = () => {
   return (
-    <Container>
+    <Container id="phone-model">
       <Canvas camera={{ fov: 14 }}>
         {/**illuminate or shine light on the object */}
         <ambientLight intensity={1.25} />

@@ -8,6 +8,9 @@ Title: Apple iPhone 13 Pro Max
 */
 
 import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import { gsap } from "gsap";
+import { useLayoutEffect } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 
@@ -69,6 +72,19 @@ type GLTFResult = GLTF & {
 
 export function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/scene.gltf") as GLTFResult;
+  const camera = useThree((state) => state.camera);
+
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#phone-model",
+        start: "top top",
+        end: "bottom+=500 bottom",
+      },
+    });
+
+    tl.fromTo(camera.position, { y: 2 }, { y: 0 }).fromTo(camera.position, { x: 1 }, { x: 0 });
+  }, []);
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>

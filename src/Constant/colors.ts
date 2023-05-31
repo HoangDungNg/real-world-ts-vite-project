@@ -1,3 +1,9 @@
+type ColorProps = {
+  name: string;
+  hexColor: string;
+  rgbColor: string;
+};
+
 export const ECOLOR = {
   SierraBlue: {
     name: "Sierra Blue",
@@ -35,10 +41,10 @@ function createColorObject(
   hexCode: string,
   colorName: string,
   rgbValues: string
-): Record<string, any> {
+): Record<string, ColorProps> {
   const rgbColor = rgbValues.split(",").map(Number).join(", ");
 
-  const colorObject: Record<string, any> = {
+  const colorObject: Record<string, ColorProps> = {
     [colorName]: {
       name: colorName,
       hexColor: hexCode,
