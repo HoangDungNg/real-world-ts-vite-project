@@ -1,7 +1,14 @@
 import { THEME_VARS } from "@theme";
 import React from "react";
 
-import { DesignSection, DisplaySection, HeroSection, Quote } from "./LandingPageSections";
+import {
+  BatterySection,
+  DesignSection,
+  DisplaySection,
+  HeroSection,
+  ProcessorSection,
+  Quote,
+} from "./LandingPageSections";
 
 const LandingPage: React.FC = () => {
   console.log(THEME_VARS);
@@ -13,6 +20,8 @@ const LandingPage: React.FC = () => {
       <HeroSection />
       <DesignSection />
       <DisplaySection />
+      <ProcessorSection />
+      <BatterySection />
     </>
   );
 };

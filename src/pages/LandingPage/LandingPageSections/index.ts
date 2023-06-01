@@ -1,3 +1,4 @@
+export { default as BatterySection } from "./BatterySection";
 export { default as DesignSection } from "./DesignSection";
 export { default as DisplaySection } from "./DisplaySection";
 export { default as HeroSection } from "./HeroSection";
