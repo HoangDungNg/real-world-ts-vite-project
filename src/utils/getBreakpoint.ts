@@ -1,5 +1,11 @@
-import { EBREAKPOINTS, EBREAKPOINTSType } from "@constant";
+import { BREAKPOINTS, BREAKPOINTS_STRING } from "@constant";
 
-export const getBreakPoint = (breakpoint: keyof EBREAKPOINTSType) => {
-  return EBREAKPOINTS[breakpoint] as number;
+const getBreakPoint = (breakpoint: keyof typeof BREAKPOINTS_STRING) => {
+  return BREAKPOINTS[breakpoint] as number;
 };
+
+const getBreakPointString = (breakpoint: keyof typeof BREAKPOINTS_STRING) => {
+  return `@media (min-width: ${BREAKPOINTS[breakpoint]})`;
+};
+
+export { getBreakPoint, getBreakPointString };

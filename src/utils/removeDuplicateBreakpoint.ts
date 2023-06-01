@@ -1,8 +1,8 @@
-import { BreakPointValueType, EBREAKPOINTSType } from "@constant";
+import { BREAKPOINTSType, BreakPointValueType } from "@constant";
 
-function removeDuplicateBreakpoint(obj: EBREAKPOINTSType): EBREAKPOINTSType {
+function removeDuplicateBreakpoint(obj: BREAKPOINTSType): BREAKPOINTSType {
   const valueSet = new Set<BreakPointValueType>();
-  const result: EBREAKPOINTSType = {};
+  const result: BREAKPOINTSType = {};
 
   for (const [key, value] of Object.entries(obj)) {
     if (!valueSet.has(value as BreakPointValueType)) {

@@ -1,11 +1,11 @@
 import { GlobalStyle } from "@styles";
-import { theme } from "@theme";
+import { THEME } from "@theme";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={THEME}>
       <GlobalStyle />
       <Outlet />
     </ThemeProvider>

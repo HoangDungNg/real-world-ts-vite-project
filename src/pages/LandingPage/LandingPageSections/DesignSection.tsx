@@ -1,5 +1,5 @@
-import { gsap } from "gsap";
-import React, { useLayoutEffect, useRef } from "react";
+import { useTextMovingOnScroll } from "@hooks";
+import React from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
@@ -12,7 +12,7 @@ const Section = styled.section`
   justify-content: flex-end;
   align-items: center;
 
-  background-color: ${(props) => props.theme.whte};
+  background-color: ${(props) => props.theme.white};
   overflow: hidden;
 `;
 
@@ -55,27 +55,7 @@ const TextContainer2 = styled.p`
 `;
 
 const DesignSection: React.FC = () => {
-  const container = useRef(null);
-  const textOne = useRef(null);
-  const textTwo = useRef(null);
-
-  useLayoutEffect(() => {
-    const tl = gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top-=500 top",
-          end: "bottom top",
-          scrub: true,
-        },
-      })
-      .fromTo(textOne.current, { x: 0 }, { x: "10%" }, "key1")
-      .fromTo(textTwo.current, { x: 0 }, { x: "-10%" }, "key1");
-
-    return () => {
-      if (tl) tl.kill();
-    };
-  }, []);
+  const { container, textOne, textTwo } = useTextMovingOnScroll({});
 
   return (
     <Section ref={container}>
