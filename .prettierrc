@@ -8,8 +8,6 @@
   "bracketSpacing": true,
   "embeddedLanguageFormatting": "auto",
   "bracketSameLine": true,
-  "proseWrap": "always",
-  "importOrder": ["^components/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "proseWrap": "always"
+
 }

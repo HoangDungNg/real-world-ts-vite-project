@@ -33,6 +33,8 @@ export default defineConfig({
       "@constant": resolve(__dirname, "./src/constant"),
       "@assets": resolve(__dirname, "./src/assets"),
       "@types": resolve(__dirname, "./src/@types"),
+      "@theme": resolve(__dirname, "./src/theme"),
+      "@styles": resolve(__dirname, "./src/styles"),
     },
   },
 });

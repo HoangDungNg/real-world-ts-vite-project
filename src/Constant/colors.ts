@@ -28,7 +28,7 @@ export const ECOLOR = {
   Red: {
     name: "Red",
     hexColor: "#A50011",
-    rgbColor: "87, 79, 111",
+    rgbColor: "165, 0, 17",
   },
   Blue: {
     name: "Blue",

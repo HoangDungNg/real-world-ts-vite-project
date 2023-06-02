@@ -28,7 +28,7 @@ export type CustomThemeType = {
 const THEME = convertCSSVariables(rootStyleCSS) as CustomThemeType;
 
 const THEME_VARS = Object.keys(THEME).reduce((obj, key) => {
-  obj[key] = key;
+  obj[key] = THEME[key];
   return obj;
 }, {} as CustomThemeType);
 

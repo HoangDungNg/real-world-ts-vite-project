@@ -1,21 +1,17 @@
-import a15 from "@assets/Images/A15-Bionic.jpg";
-import { THEME } from "@theme";
 import React from "react";
+import a15 from "@assets/Images/A15-Bionic.jpg";
+import { FlexSection, IFlexSection } from "@components";
+import { THEME, THEME_VARS } from "@theme";
 import styled, { keyframes } from "styled-components";
 
-const Section = styled.section`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  background-color: ${(props) => props.theme.dark};
-  color: ${(props) => props.theme.white};
-  overflow: hidden;
-`;
+const FlexSectionCustomStyles: IFlexSection = {
+  style: {
+    justifyContent: "flex-start",
+    backgroundColor: THEME_VARS.dark,
+    color: THEME_VARS.white,
+    overflow: "hidden",
+  },
+};
 
 const Title = styled.h1`
   width: 100%;
@@ -88,7 +84,7 @@ const Container = styled.div`
 
 const ProcessorSection: React.FC = () => {
   return (
-    <Section>
+    <FlexSection {...FlexSectionCustomStyles}>
       <Title>Fastest Processor</Title>
       <Container>
         <Processor>
@@ -106,7 +102,7 @@ const ProcessorSection: React.FC = () => {
           </span>
         </Text>
       </Container>
-    </Section>
+    </FlexSection>
   );
 };
 

@@ -1,18 +1,15 @@
+import React, { useLayoutEffect, useRef } from "react";
+import { FlexSection, IFlexSection } from "@components";
+import { THEME_VARS } from "@theme";
 import { gsap } from "gsap";
-import React, { useRef } from "react";
 import styled from "styled-components";
 
-const Section = styled.section`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  transform: none !important;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: ${(props) => props.theme.white};
-`;
+const FlexSectionCustomStyles: IFlexSection = {
+  style: {
+    backgroundColor: THEME_VARS.white,
+    justifyContent: "flex-end",
+  },
+};
 
 const Title = styled.h1`
   position: absolute;
@@ -40,6 +37,7 @@ const Battery = styled.ul`
     height: 5rem;
     background-color: ${(props) => props.theme.dark};
     background-image: linear-gradient(-90deg, ${(props) => props.theme.gradient});
+    opacity: 0;
   }
   & > *:not(:first-child):not(:last-child) {
     margin: 0.5rem 0;
@@ -48,10 +46,26 @@ const Battery = styled.ul`
 
 const BatterySection: React.FC = () => {
   const battery = useRef(null);
+  // gsap provides utils.selector to select all the child elements of a parent element
   const elements = gsap.utils.selector(battery);
 
+  useLayoutEffect(() => {
+    const tl = gsap.timeline();
+    elements("li").forEach((el) => {
+      tl.to(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+        },
+        opacity: 1,
+      });
+    });
+  }, []);
+
   return (
-    <Section>
+    <FlexSection {...FlexSectionCustomStyles}>
       <Title>Go all day with single charge...</Title>
       <Battery ref={battery}>
         <li />
@@ -60,7 +74,7 @@ const BatterySection: React.FC = () => {
         <li />
         <li />
       </Battery>
-    </Section>
+    </FlexSection>
   );
 };
 

@@ -11,7 +11,44 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              ["^react", "^@?\\w"],
+              // Internal packages.
+              [
+                "^(@|components)(/.*|$)",
+                "^(@|router)(/.*|$)",
+                "^(@|pages)(/.*|$)",
+                "^(@|hooks)(/.*|$)",
+                "^(@|layout)(/.*|$)",
+                "^(@|utils)(/.*|$)",
+                "^(@|constant)(/.*|$)",
+                "^(@|assets)(/.*|$)",
+                "^(@|types)(/.*|$)",
+                "^(@|theme)(/.*|$)",
+                "^(@|styles)(/.*|$)"
+              ],
+              // Side effect imports.
+              ["^\\u0000"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports.
+              ["^.+\\.?(css)$"]
+            ]
+          }
+        ]
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -22,16 +59,15 @@
   },
   "plugins": [
     "react",
+    "simple-import-sort",
     "@typescript-eslint",
     "react-refresh",
     "unused-imports",
     "prettier",
-    "react-hooks",
-    "import"
+    "react-hooks"
   ],
   "rules": {
     "prettier/prettier": ["warn", { "endOfLine": "auto" }],
-    "react/react-in-jsx-scope": "off",
     "jsx-a11y/accessible-emoji": "off",
     "no-unused-vars": "off",
     "no-unused-labels": "warn",
@@ -50,14 +86,11 @@
     "semi": ["error", "always"],
     "react-refresh/only-export-components": "warn",
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-    "import/order": [
-      "warn",
-      {
-        "groups": [["builtin", "external"], "internal", ["parent", "sibling"], "index"],
-        "newlines-between": "always"
-      }
-    ],
-    "import/newline-after-import": "warn",
+    "react/display-name": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "@typescript-eslint/no-explicit-any": "error"
   },
   "settings": {

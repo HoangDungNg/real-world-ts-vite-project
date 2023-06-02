@@ -1,20 +1,10 @@
+import React, { useLayoutEffect, useRef } from "react";
+import { FlexSection } from "@components";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, { useLayoutEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { QuoteTextType } from "./LandingPageSectionTypes";
-
-const Section = styled.section`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  transform: none !important;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const TextContainer = styled.div`
   width: 100vw;
@@ -86,7 +76,7 @@ const Quote: React.FC = () => {
   }, []);
 
   return (
-    <Section ref={sectionRef}>
+    <FlexSection ref={sectionRef}>
       <TextContainer>
         <Text delay="0s">
           <span>&#8220; You can&apos;t connect the dots looking forward; </span>
@@ -104,7 +94,7 @@ const Quote: React.FC = () => {
           <span className="author">&nbsp;&nbsp;&nbsp;&#x23AF; Steve Jobs</span>
         </Text>
       </TextContainer>
-    </Section>
+    </FlexSection>
   );
 };
 

@@ -1,6 +1,6 @@
+import { Outlet } from "react-router-dom";
 import { GlobalStyle } from "@styles";
 import { THEME } from "@theme";
-import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 function App() {

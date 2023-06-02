@@ -1,5 +1,5 @@
-import backgroundVideo from "@assets/video/Ink-21536.mp4";
 import React from "react";
+import backgroundVideo from "@assets/video/Ink-21536.mp4";
 import styled from "styled-components";
 
 const Section = styled.section`

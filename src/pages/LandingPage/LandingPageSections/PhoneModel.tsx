@@ -1,7 +1,7 @@
+import React, { Suspense } from "react";
 import { Model } from "@assets/3D-Model/Scene";
 import { Environment } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
