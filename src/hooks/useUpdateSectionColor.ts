@@ -1,5 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
+import { GLTFResult } from "@components/Scene/Scene";
 import { ADDITIONAL_SPACE, ECOLOR } from "@constant";
+import { useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
 
 export const useUpdateSectionColor = () => {
@@ -7,6 +9,8 @@ export const useUpdateSectionColor = () => {
   const rightRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+
+  const { materials } = useGLTF("/scene.gltf") as GLTFResult;
 
   useLayoutEffect(() => {
     const sectionEle = sectionRef.current;
@@ -16,6 +20,7 @@ export const useUpdateSectionColor = () => {
     const animationEndPosition = sectionEle ? sectionEle.offsetWidth + ADDITIONAL_SPACE : undefined;
 
     const updateColor = (colorName: string, color: string, rgbColor: string) => {
+      materials.Body.color.set(color);
       if (textEle) {
         textEle.innerText = colorName;
         textEle.style.color = color;

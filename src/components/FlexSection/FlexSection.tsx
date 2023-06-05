@@ -4,6 +4,7 @@ import styled from "styled-components";
 type CustomStyle = Omit<CSSProperties, "width" | "height" | "position" | "display">;
 
 export interface IFlexSection {
+  id?: string;
   style?: CustomStyle;
   children?: ReactNode;
   noTransform?: boolean;
@@ -22,7 +23,7 @@ const SectionContainer = styled.section<IFlexSection>`
 
 const Section = React.forwardRef<null | HTMLDivElement, IFlexSection>((props, ref) => {
   return (
-    <SectionContainer style={{ ...props.style }} ref={ref}>
+    <SectionContainer style={{ ...props.style }} ref={ref} id={props.id}>
       {props.children}
     </SectionContainer>
   );

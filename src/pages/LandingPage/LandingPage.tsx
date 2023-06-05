@@ -6,6 +6,7 @@ import {
   DesignSection,
   DisplaySection,
   HeroSection,
+  PhoneModel,
   ProcessorSection,
   Quote,
 } from "./LandingPageSections";
@@ -14,7 +15,7 @@ const LandingPage: React.FC = () => {
   return (
     <>
       <Quote />
-      {/* <PhoneModel /> */}
+      <PhoneModel />
       <HeroSection />
       <DesignSection />
       <DisplaySection />

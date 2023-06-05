@@ -65,7 +65,7 @@ const BatterySection: React.FC = () => {
   }, []);
 
   return (
-    <FlexSection {...FlexSectionCustomStyles}>
+    <FlexSection {...FlexSectionCustomStyles} id="battery-section">
       <Title>Go all day with single charge...</Title>
       <Battery ref={battery}>
         <li />

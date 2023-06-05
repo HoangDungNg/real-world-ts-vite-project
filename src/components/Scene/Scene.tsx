@@ -7,14 +7,15 @@ Source: https://sketchfab.com/3d-models/apple-iphone-13-pro-max-4328dea00e47497d
 Title: Apple iPhone 13 Pro Max
 */
 
+import { useLayoutEffect } from "react";
+import { ECOLOR } from "@constant";
 import { useGLTF } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
-import { useLayoutEffect } from "react";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
 
-type GLTFResult = GLTF & {
+export type GLTFResult = GLTF & {
   nodes: {
     Body_Mic_0: THREE.Mesh;
     Body_Bezel_0: THREE.Mesh;
@@ -73,17 +74,31 @@ type GLTFResult = GLTF & {
 export function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/scene.gltf") as GLTFResult;
   const camera = useThree((state) => state.camera);
+  const scene = useThree((state) => state.scene);
 
   useLayoutEffect(() => {
+    camera.position.set(0, 2, 6);
+    materials.Body.color.set(ECOLOR.SierraBlue.hexColor);
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#phone-model",
-        start: "top top",
-        end: "bottom+=500 bottom",
+        start: "top+=200 top",
+        endTrigger: "#battery-section",
+        end: "top top",
+        scrub: true,
       },
     });
 
-    tl.fromTo(camera.position, { y: 2 }, { y: 0 }).fromTo(camera.position, { x: 1 }, { x: 0 });
+    tl.fromTo(camera.position, { y: 2 }, { y: 0 })
+      .to(scene.rotation, { y: 0.8 })
+      .to(scene.rotation, { y: 3 })
+      .to(scene.rotation, { z: 1.58 }, "key1")
+      .to(camera.position, { z: 4 }, "key1")
+      .to(scene.rotation, { y: 0, z: 0 }, "key2")
+      .to(camera.position, { z: 6, x: -1 }, "key2")
+      .to(scene.rotation, { z: 0, y: 6.3 }, "key3")
+      .to(camera.position, { x: 0.8, y: 0 }, "key3");
   }, []);
   return (
     <group {...props} dispose={null}>

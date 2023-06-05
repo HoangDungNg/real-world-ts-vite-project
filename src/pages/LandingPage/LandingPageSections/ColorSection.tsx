@@ -1,7 +1,9 @@
-import React from "react";
-import { FlexSection } from "@components";
+import React, { Suspense } from "react";
+import { FlexSection, ModelTwo } from "@components";
 import { ECOLOR } from "@constant";
 import { useUpdateSectionColor } from "@hooks";
+import { Environment } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import styled from "styled-components";
 
 const Left = styled.div`
@@ -40,8 +42,19 @@ const ColorSection: React.FC = () => {
   return (
     <FlexSection ref={sectionRef}>
       <Left ref={leftRef} />
-      <Center ref={textRef}>Sierra Blue</Center>
+      <Center ref={textRef} />
       <Right ref={rightRef} />
+
+      <Canvas camera={{ fov: 6.5 }}>
+        <ambientLight intensity={1.25} />
+        <directionalLight intensity={0.4} />
+
+        <Suspense fallback={null}>
+          <ModelTwo />
+        </Suspense>
+
+        <Environment preset="night" />
+      </Canvas>
     </FlexSection>
   );
 };
