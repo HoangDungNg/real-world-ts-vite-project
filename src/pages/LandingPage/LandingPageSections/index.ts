@@ -1,4 +1,5 @@
 export { default as BatterySection } from "./BatterySection";
+export { default as CameraSection } from "./CameraSection";
 export { default as ColorSection } from "./ColorSection";
 export { default as DesignSection } from "./DesignSection";
 export { default as DisplaySection } from "./DisplaySection";

@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type CustomStyle = Omit<CSSProperties, "width" | "height" | "position" | "display">;
 
@@ -18,7 +18,13 @@ const SectionContainer = styled.section<IFlexSection>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: none !important;
+
+  ${(props) =>
+    props.noTransform
+      ? undefined
+      : css`
+          transform: none !important;
+        `};
 `;
 
 const Section = React.forwardRef<null | HTMLDivElement, IFlexSection>((props, ref) => {

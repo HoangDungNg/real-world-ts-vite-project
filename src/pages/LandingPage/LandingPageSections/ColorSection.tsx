@@ -40,7 +40,7 @@ const ColorSection: React.FC = () => {
   const { sectionRef, leftRef, textRef, rightRef } = useUpdateSectionColor();
 
   return (
-    <FlexSection ref={sectionRef}>
+    <FlexSection ref={sectionRef} noTransform id="color-section">
       <Left ref={leftRef} />
       <Center ref={textRef} />
       <Right ref={rightRef} />

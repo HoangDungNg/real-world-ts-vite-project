@@ -2,11 +2,11 @@ import React from "react";
 
 import {
   BatterySection,
+  CameraSection,
   ColorSection,
   DesignSection,
   DisplaySection,
   HeroSection,
-  PhoneModel,
   ProcessorSection,
   Quote,
 } from "./LandingPageSections";
@@ -15,13 +15,14 @@ const LandingPage: React.FC = () => {
   return (
     <>
       <Quote />
-      <PhoneModel />
+      {/* <PhoneModel /> */}
       <HeroSection />
       <DesignSection />
       <DisplaySection />
       <ProcessorSection />
       <BatterySection />
       <ColorSection />
+      <CameraSection />
     </>
   );
 };

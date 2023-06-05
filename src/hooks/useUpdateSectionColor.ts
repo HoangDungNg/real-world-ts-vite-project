@@ -4,11 +4,14 @@ import { ADDITIONAL_SPACE, ECOLOR } from "@constant";
 import { useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
 
+import { useScrollingUp } from "./useScrollUp";
+
 export const useUpdateSectionColor = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const scrollup = useScrollingUp();
 
   const { materials } = useGLTF("/scene.gltf") as GLTFResult;
 
@@ -34,10 +37,17 @@ export const useUpdateSectionColor = () => {
       scrollTrigger: {
         trigger: sectionEle,
         start: "top top",
-        end: `+=${animationEndPosition}`,
+        end: `+=${animationEndPosition} top`,
         scrub: true,
         pin: true,
         pinSpacing: true,
+        markers: true,
+        once: true,
+        onLeave: () => {
+          gsap.set(sectionEle, {
+            position: "fixed",
+          });
+        },
       },
     });
 
@@ -46,7 +56,7 @@ export const useUpdateSectionColor = () => {
         scrollTrigger: {
           trigger: sectionEle,
           start: "top top",
-          end: `+=${animationEndPosition}`,
+          end: `+=${animationEndPosition} top`,
           scrub: true,
         },
       })

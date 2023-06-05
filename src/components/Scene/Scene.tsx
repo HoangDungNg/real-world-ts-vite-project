@@ -87,15 +87,16 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         endTrigger: "#battery-section",
         end: "top top",
         scrub: true,
+        markers: true,
       },
     });
 
     tl.fromTo(camera.position, { y: 2 }, { y: 0 })
       .to(scene.rotation, { y: 0.8 })
       .to(scene.rotation, { y: 3 })
-      .to(scene.rotation, { z: 1.58 }, "key1")
+      .to(scene.rotation, { z: 1.58 })
       .to(camera.position, { z: 4 }, "key1")
-      .to(scene.rotation, { y: 0, z: 0 }, "key2")
+      .to(scene.rotation, { y: 0, z: 0 }, "key1")
       .to(camera.position, { z: 6, x: -1 }, "key2")
       .to(scene.rotation, { z: 0, y: 6.3 }, "key3")
       .to(camera.position, { x: 0.8, y: 0 }, "key3");
