@@ -87,7 +87,6 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         endTrigger: "#battery-section",
         end: "top top",
         scrub: true,
-        markers: true,
       },
     });
 

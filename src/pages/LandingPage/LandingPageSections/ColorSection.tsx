@@ -1,10 +1,14 @@
-import React, { Suspense } from "react";
+import React, { RefObject, Suspense } from "react";
 import { FlexSection, ModelTwo } from "@components";
 import { ECOLOR } from "@constant";
 import { useUpdateSectionColor } from "@hooks";
 import { Environment } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import styled from "styled-components";
+
+interface IColorSection {
+  batterySectionRef: RefObject<HTMLDivElement>;
+}
 
 const Left = styled.div`
   width: 50%;
@@ -36,8 +40,8 @@ const Center = styled.div`
   filter: brightness(0.85);
 `;
 
-const ColorSection: React.FC = () => {
-  const { sectionRef, leftRef, textRef, rightRef } = useUpdateSectionColor();
+const ColorSection: React.FC<IColorSection> = ({ batterySectionRef }) => {
+  const { sectionRef, leftRef, textRef, rightRef } = useUpdateSectionColor(batterySectionRef);
 
   return (
     <FlexSection ref={sectionRef} noTransform id="color-section">

@@ -1,8 +1,12 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { RefObject, useLayoutEffect, useRef } from "react";
 import { FlexSection, IFlexSection } from "@components";
 import { THEME_VARS } from "@theme";
 import { gsap } from "gsap";
 import styled from "styled-components";
+
+interface IBattery {
+  batterySectionRef?: RefObject<HTMLDivElement>;
+}
 
 const FlexSectionCustomStyles: IFlexSection = {
   style: {
@@ -44,7 +48,7 @@ const Battery = styled.ul`
   }
 `;
 
-const BatterySection: React.FC = () => {
+const BatterySection: React.FC<IBattery> = ({ batterySectionRef }) => {
   const battery = useRef(null);
   // gsap provides utils.selector to select all the child elements of a parent element
   const elements = gsap.utils.selector(battery);
@@ -65,7 +69,7 @@ const BatterySection: React.FC = () => {
   }, []);
 
   return (
-    <FlexSection {...FlexSectionCustomStyles} id="battery-section">
+    <FlexSection {...FlexSectionCustomStyles} id="battery-section" ref={batterySectionRef}>
       <Title>Go all day with single charge...</Title>
       <Battery ref={battery}>
         <li />
@@ -77,5 +81,39 @@ const BatterySection: React.FC = () => {
     </FlexSection>
   );
 };
+
+// const BatterySection = React.forwardRef<null | HTMLDivElement, unknown>((props, ref) => {
+//   const battery = useRef(null);
+//   // gsap provides utils.selector to select all the child elements of a parent element
+//   const elements = gsap.utils.selector(battery);
+
+//   useLayoutEffect(() => {
+//     const tl = gsap.timeline();
+//     elements("li").forEach((el) => {
+//       tl.to(el, {
+//         scrollTrigger: {
+//           trigger: el,
+//           start: "top center",
+//           end: "bottom center",
+//           scrub: true,
+//         },
+//         opacity: 1,
+//       });
+//     });
+//   }, []);
+
+//   return (
+//     <FlexSection {...FlexSectionCustomStyles} id="battery-section" ref={ref}>
+//       <Title>Go all day with single charge...</Title>
+//       <Battery ref={battery}>
+//         <li />
+//         <li />
+//         <li />
+//         <li />
+//         <li />
+//       </Battery>
+//     </FlexSection>
+//   );
+// });
 
 export default BatterySection;

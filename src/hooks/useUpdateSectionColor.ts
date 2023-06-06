@@ -1,19 +1,39 @@
-import { useLayoutEffect, useRef } from "react";
+import { RefObject, useEffect, useLayoutEffect, useRef } from "react";
 import { GLTFResult } from "@components/Scene/Scene";
 import { ADDITIONAL_SPACE, ECOLOR } from "@constant";
 import { useGLTF } from "@react-three/drei";
 import { gsap } from "gsap";
 
-import { useScrollingUp } from "./useScrollUp";
+import { useScrollingUp, useSectionEnters, useSectionFullyExiting } from "./useScrollUp";
 
-export const useUpdateSectionColor = () => {
+export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+
   const scrollup = useScrollingUp();
+  const isBatteryEnters = useSectionEnters(batteryRef);
+  const { isSectionFullyExiting: isBatteryExists } = useSectionFullyExiting(batteryRef);
 
   const { materials } = useGLTF("/scene.gltf") as GLTFResult;
+
+  useEffect(() => {
+    const sectionEle = sectionRef.current;
+    if (isBatteryEnters && scrollup) {
+      gsap.set(sectionEle, {
+        position: "relative",
+      });
+    }
+
+    if (!scrollup && isBatteryExists) {
+      gsap.to(sectionEle, {
+        position: "fixed",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    }
+  }, [scrollup, isBatteryEnters, isBatteryExists]);
 
   useLayoutEffect(() => {
     const sectionEle = sectionRef.current;
@@ -37,15 +57,18 @@ export const useUpdateSectionColor = () => {
       scrollTrigger: {
         trigger: sectionEle,
         start: "top top",
-        end: `+=${animationEndPosition} top`,
+        end: `+=${animationEndPosition} bottom`,
+        endTrigger: "#camera-section",
         scrub: true,
-        pin: true,
+        pin: "#color-section",
         pinSpacing: true,
-        markers: true,
         once: true,
+        markers: true,
         onLeave: () => {
           gsap.set(sectionEle, {
             position: "fixed",
+            duration: 0.3,
+            ease: "power2.out",
           });
         },
       },
@@ -56,7 +79,7 @@ export const useUpdateSectionColor = () => {
         scrollTrigger: {
           trigger: sectionEle,
           start: "top top",
-          end: `+=${animationEndPosition} top`,
+          end: `+=${animationEndPosition} bottom`,
           scrub: true,
         },
       })
@@ -96,7 +119,7 @@ export const useUpdateSectionColor = () => {
         onReverseComplete: updateColor,
         onReverseCompleteParams: Object.values(ECOLOR.Blue),
       });
-  }, []);
+  }, [materials.Body.color]);
 
   return { sectionRef, rightRef, leftRef, textRef };
 };

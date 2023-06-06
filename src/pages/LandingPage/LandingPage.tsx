@@ -7,21 +7,23 @@ import {
   DesignSection,
   DisplaySection,
   HeroSection,
+  PhoneModel,
   ProcessorSection,
   Quote,
 } from "./LandingPageSections";
 
 const LandingPage: React.FC = () => {
+  const batterSectionRef = React.createRef<HTMLDivElement>();
   return (
     <>
       <Quote />
-      {/* <PhoneModel /> */}
+      <PhoneModel />
       <HeroSection />
       <DesignSection />
       <DisplaySection />
       <ProcessorSection />
-      <BatterySection />
-      <ColorSection />
+      <BatterySection batterySectionRef={batterSectionRef} />
+      <ColorSection batterySectionRef={batterSectionRef} />
       <CameraSection />
     </>
   );

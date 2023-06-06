@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { App } from "../Layout";
 import { EROUTE } from "../constant";
+import { App } from "../Layout";
 import { ErrorFallBack, FirstPage, LandingPage, SecondPage } from "../pages";
 
 const Router: React.FC = () => {
