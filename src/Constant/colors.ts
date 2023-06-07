@@ -1,4 +1,4 @@
-type ColorProps = {
+export type ColorProps = {
   name: string;
   hexColor: string;
   rgbColor: string;

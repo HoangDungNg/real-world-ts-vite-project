@@ -8,6 +8,7 @@ import {
   DisplaySection,
   HeroSection,
   PhoneModel,
+  PricingSection,
   ProcessorSection,
   Quote,
 } from "./LandingPageSections";
@@ -25,6 +26,7 @@ const LandingPage: React.FC = () => {
       <BatterySection batterySectionRef={batterSectionRef} />
       <ColorSection batterySectionRef={batterSectionRef} />
       <CameraSection />
+      <PricingSection />
     </>
   );
 };

@@ -15,15 +15,18 @@ import { useThree } from "@react-three/fiber";
 import SceneBody from "./Partial/SceneBody";
 import { GLTFResult } from "./Scene";
 
-export function ModelTwo(props: JSX.IntrinsicElements["group"]) {
+export function ModelThree(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/scene.gltf") as GLTFResult;
   const camera = useThree((state) => state.camera);
 
+  const clonedMaterial = { ...materials };
+  const cloneNodes = { ...nodes };
+
   useLayoutEffect(() => {
     camera.position.set(-0.1, 0.4, 5);
-    materials.Body.color.set(ECOLOR.SierraBlue.hexColor);
+    clonedMaterial.Body.color.set(ECOLOR.SierraBlue.hexColor);
   }, []);
-  return <SceneBody props={props} nodes={nodes} materials={materials} />;
+  return <SceneBody props={props} nodes={cloneNodes} materials={clonedMaterial} />;
 }
 
 useGLTF.preload("/scene.gltf");

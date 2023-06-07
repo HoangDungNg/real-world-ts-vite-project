@@ -27,13 +27,39 @@ const VideoTwo = styled.video`
   z-index: 1;
 `;
 
+const TitleContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  & > *:nth-child(2) {
+    margin-left: 6rem;
+  }
+  & > *:nth-child(3) {
+    margin-left: 12rem;
+  }
+`;
+
+const Title = styled.h1`
+  font-size: ${(props) => props.theme.fontBig};
+  z-index: 5;
+  text-transform: capitalize;
+`;
+
+const SectionCustomStyles: CSSProperties = {
+  zIndex: 1,
+  backgroundColor: THEME_VARS.white,
+  overflow: "hidden",
+};
+
 const CameraSection: React.FC = () => {
-  const { sectionRef, videoRef1, videoRef2 } = useVideoScaleOnScroll();
-  const SectionCustomStyles: CSSProperties = {
-    zIndex: 1,
-    backgroundColor: THEME_VARS.white,
-    overflow: "hidden",
-  };
+  const { sectionRef, videoRef1, videoRef2, titleRef } = useVideoScaleOnScroll();
 
   return (
     <Section style={SectionCustomStyles} id="camera-section" ref={sectionRef}>
@@ -43,6 +69,12 @@ const CameraSection: React.FC = () => {
       <VideoTwo muted loop autoPlay ref={videoRef2}>
         <source src={v2} type="video/mp4" />
       </VideoTwo>
+
+      <TitleContainer ref={titleRef}>
+        <Title>Ready.</Title>
+        <Title>Steady.</Title>
+        <Title>Action.</Title>
+      </TitleContainer>
     </Section>
   );
 };

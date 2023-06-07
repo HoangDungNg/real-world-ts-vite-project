@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import styled, { CSSProperties } from "styled-components";
 
-interface ISection {
+export interface ISection {
   style?: CSSProperties;
   children?: ReactNode;
   id?: string;
