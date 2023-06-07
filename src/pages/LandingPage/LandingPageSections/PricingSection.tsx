@@ -1,8 +1,9 @@
-import React, { Suspense, useRef } from "react";
-import { GLTFResult, ISection, Section } from "@components";
+import React, { Suspense, useContext, useEffect, useRef } from "react";
+import { ISection, Section } from "@components";
 import { ModelThree } from "@components/Scene/SceneThree";
 import { ColorProps, ECOLOR } from "@constant";
-import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { ColorContext } from "@context";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { THEME_VARS } from "@theme";
 import styled from "styled-components";
@@ -10,8 +11,7 @@ import styled from "styled-components";
 const SectionCustomStyles: ISection = {
   style: {
     zIndex: 1,
-    backgroundColor: THEME_VARS.white,
-    overflow: "hidden",
+    backgroundColor: ECOLOR.Blue.hexColor,
   },
 };
 
@@ -20,6 +20,8 @@ const Container = styled.div`
   height: 100vh;
   position: relative;
   z-index: 1;
+  background-color: ${(props) => props.theme.white};
+  overflow: hidden;
 `;
 
 const Phone = styled.div`
@@ -114,14 +116,24 @@ const ButtonLink = styled.a`
   }
 `;
 
+const IndicatorText = styled.div`
+  font-size: ${(props) => props.theme.fontsm};
+  position: absolute;
+  top: 2rem;
+`;
+
 const PricingSection: React.FC = () => {
-  const { materials } = useGLTF("/scene.gltf") as GLTFResult;
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const updateColor = (color: ColorProps) => {
-    materials.Body.color.set(color.hexColor);
+  const { currentColor, changeColorContext } = useContext(ColorContext);
+
+  useEffect(() => {
     if (sectionRef.current)
-      sectionRef.current.style.backgroundColor = `rgba(${color.rgbColor}, 0.4)`;
+      sectionRef.current.style.backgroundColor = `rgba(${currentColor.rgbColor}, 0.4)`;
+  }, [currentColor]);
+
+  const updateColor = (color: ColorProps) => {
+    changeColorContext(color);
   };
 
   const color1 = ECOLOR.SierraBlue;
@@ -135,6 +147,7 @@ const PricingSection: React.FC = () => {
     <Container>
       <Section {...SectionCustomStyles} ref={sectionRef}>
         <Phone>
+          <IndicatorText>360&deg; &#x27F2;</IndicatorText>
           <Canvas camera={{ fov: 14 }}>
             <ambientLight intensity={1} />
             <directionalLight intensity={0.4} />
@@ -159,11 +172,11 @@ const PricingSection: React.FC = () => {
         <Details>
           <SubTitle>iPhone</SubTitle>
           <Title>14 Pro Max</Title>
-          <SubTitle>From $10</SubTitle>
+          <SubTitle>From $1099*</SubTitle>
         </Details>
         <ButtonContainer>
           <Button>Buy</Button>
-          <ButtonLink href="#">Learn More</ButtonLink>
+          <ButtonLink href="#">Learn More &#x2192;</ButtonLink>
         </ButtonContainer>
       </Section>
     </Container>

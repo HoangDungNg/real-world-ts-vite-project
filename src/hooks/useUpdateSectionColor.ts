@@ -1,7 +1,6 @@
-import { RefObject, useEffect, useLayoutEffect, useRef } from "react";
-import { GLTFResult } from "@components/Scene/Scene";
-import { ADDITIONAL_SPACE, ECOLOR } from "@constant";
-import { useGLTF } from "@react-three/drei";
+import { RefObject, useContext, useEffect, useLayoutEffect, useRef } from "react";
+import { ADDITIONAL_SPACE, ColorProps, ECOLOR } from "@constant";
+import { ColorContext } from "@context";
 import { gsap } from "gsap";
 
 import { useScrollingUp, useSectionEnters, useSectionFullyExiting } from "./useScrollUp";
@@ -16,7 +15,7 @@ export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => 
   const isBatteryEnters = useSectionEnters(batteryRef);
   const { isSectionFullyExiting: isBatteryExists } = useSectionFullyExiting(batteryRef);
 
-  const { materials } = useGLTF("/scene.gltf") as GLTFResult;
+  const { currentColor, changeColorContext } = useContext(ColorContext);
 
   useEffect(() => {
     const sectionEle = sectionRef.current;
@@ -35,21 +34,24 @@ export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => 
     }
   }, [scrollup, isBatteryEnters, isBatteryExists]);
 
-  useLayoutEffect(() => {
-    const sectionEle = sectionRef.current;
+  useEffect(() => {
     const rightEle = rightRef.current;
     const leftEle = leftRef.current;
     const textEle = textRef.current;
+    if (textEle) {
+      textEle.innerText = currentColor.name;
+      textEle.style.color = currentColor.hexColor;
+    }
+    if (rightEle) rightEle.style.backgroundColor = `rgba(${currentColor.rgbColor}, 0.4)`;
+    if (leftEle) leftEle.style.backgroundColor = `rgba(${currentColor.rgbColor}, 0.8)`;
+  }, [currentColor]);
+
+  useLayoutEffect(() => {
+    const sectionEle = sectionRef.current;
     const animationEndPosition = sectionEle ? sectionEle.offsetWidth + ADDITIONAL_SPACE : undefined;
 
-    const updateColor = (colorName: string, color: string, rgbColor: string) => {
-      materials.Body.color.set(color);
-      if (textEle) {
-        textEle.innerText = colorName;
-        textEle.style.color = color;
-      }
-      if (rightEle) rightEle.style.backgroundColor = `rgba(${rgbColor}, 0.4)`;
-      if (leftEle) leftEle.style.backgroundColor = `rgba(${rgbColor}, 0.8)`;
+    const updateColor = (colorObj: ColorProps) => {
+      changeColorContext(colorObj);
     };
 
     // pin the section
@@ -63,7 +65,6 @@ export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => 
         pin: "#color-section",
         pinSpacing: true,
         once: true,
-        markers: true,
         onLeave: () => {
           gsap.set(sectionEle, {
             position: "fixed",
@@ -74,7 +75,7 @@ export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => 
       },
     });
 
-    const t2 = gsap
+    gsap
       .timeline({
         scrollTrigger: {
           trigger: sectionEle,
@@ -85,41 +86,41 @@ export const useUpdateSectionColor = (batteryRef: RefObject<HTMLDivElement>) => 
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.SierraBlue),
+        onStartParams: [ECOLOR.SierraBlue],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.SierraBlue),
+        onReverseCompleteParams: [ECOLOR.SierraBlue],
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.Gold),
+        onStartParams: [ECOLOR.Gold],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.Gold),
+        onReverseCompleteParams: [ECOLOR.Gold],
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.AlpineGreen),
+        onStartParams: [ECOLOR.AlpineGreen],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.AlpineGreen),
+        onReverseCompleteParams: [ECOLOR.AlpineGreen],
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.DeepPurple),
+        onStartParams: [ECOLOR.DeepPurple],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.DeepPurple),
+        onReverseCompleteParams: [ECOLOR.DeepPurple],
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.Red),
+        onStartParams: [ECOLOR.Red],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.Red),
+        onReverseCompleteParams: [ECOLOR.Red],
       })
       .to(sectionEle, {
         onStart: updateColor,
-        onStartParams: Object.values(ECOLOR.Blue),
+        onStartParams: [ECOLOR.Blue],
         onReverseComplete: updateColor,
-        onReverseCompleteParams: Object.values(ECOLOR.Blue),
+        onReverseCompleteParams: [ECOLOR.Blue],
       });
-  }, [materials.Body.color]);
+  }, []);
 
   return { sectionRef, rightRef, leftRef, textRef };
 };

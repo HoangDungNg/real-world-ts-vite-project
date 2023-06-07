@@ -1,4 +1,5 @@
 import React from "react";
+import { ColorContextProvider } from "@context";
 
 import {
   BatterySection,
@@ -24,9 +25,11 @@ const LandingPage: React.FC = () => {
       <DisplaySection />
       <ProcessorSection />
       <BatterySection batterySectionRef={batterSectionRef} />
-      <ColorSection batterySectionRef={batterSectionRef} />
-      <CameraSection />
-      <PricingSection />
+      <ColorContextProvider>
+        <ColorSection batterySectionRef={batterSectionRef} />
+        <CameraSection />
+        <PricingSection />
+      </ColorContextProvider>
     </>
   );
 };

@@ -35,6 +35,7 @@ export default defineConfig({
       "@types": resolve(__dirname, "./src/@types"),
       "@theme": resolve(__dirname, "./src/theme"),
       "@styles": resolve(__dirname, "./src/styles"),
+      "@context": resolve(__dirname, "./src/context"),
     },
   },
 });

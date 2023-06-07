@@ -10,7 +10,7 @@ Title: Apple iPhone 13 Pro Max
 import { useLayoutEffect } from "react";
 import { ECOLOR } from "@constant";
 import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { Camera, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
@@ -73,14 +73,25 @@ export type GLTFResult = GLTF & {
   };
 };
 
+interface CustomCamera {
+  fov?: number;
+}
+
 export function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/scene.gltf") as GLTFResult;
-  const camera = useThree((state) => state.camera);
+  const camera = useThree<Camera & CustomCamera>((state) => state.camera);
   const scene = useThree((state) => state.scene);
 
   useLayoutEffect(() => {
     camera.position.set(0, 2, 6);
     materials.Body.color.set(ECOLOR.SierraBlue.hexColor);
+
+    let fov = camera.fov;
+    fov = (1400 * 18) / window.innerWidth;
+
+    camera.fov = fov;
+    // whenever we assign new values to camera properties, we need to call this function
+    camera.updateProjectionMatrix();
 
     const tl = gsap.timeline({
       scrollTrigger: {
